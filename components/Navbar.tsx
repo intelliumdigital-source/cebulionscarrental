@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { CalendarDays, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ImageFallback } from "@/components/ui/image-fallback";
 import { navLinks } from "@/lib/site-data";
 
 export function Navbar() {
+  const router = useRouter();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [activeHash, setActiveHash] = useState("");
@@ -32,6 +33,44 @@ export function Navbar() {
     }
 
     return activeHash === href.replace("/", "");
+  };
+
+  const scrollToHash = (hash: string) => {
+    const id = hash.replace("#", "");
+    const element = document.getElementById(id);
+
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const handleNavClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    setIsOpen(false);
+
+    if (href === "/" && pathname === "/") {
+      event.preventDefault();
+      setActiveHash("");
+      window.history.pushState(null, "", "/");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    if (href.startsWith("/#") && pathname === "/") {
+      event.preventDefault();
+      const hash = href.replace("/", "");
+      setActiveHash(hash);
+      window.history.pushState(null, "", href);
+      window.requestAnimationFrame(() => scrollToHash(hash));
+      return;
+    }
+
+    if (href.startsWith("/#") && pathname !== "/") {
+      event.preventDefault();
+      router.push(href, { scroll: false });
+    }
   };
 
   return (
@@ -73,9 +112,10 @@ export function Navbar() {
                   key={link.label}
                   href={link.href}
                   scroll={false}
+                  onClick={(event) => handleNavClick(event, link.href)}
                   className={`relative text-sm font-semibold uppercase tracking-[0.14em] transition ${
                     isActive ? "text-white" : "text-white/70 hover:text-white"
-                  }`}
+                  } cursor-pointer`}
                 >
                   {link.label}
                   {isActive ? (
@@ -117,12 +157,12 @@ export function Navbar() {
                     key={link.label}
                     href={link.href}
                     scroll={false}
+                    onClick={(event) => handleNavClick(event, link.href)}
                     className={`rounded-2xl px-4 py-3 text-sm font-semibold uppercase tracking-[0.14em] ${
                       isActive
                         ? "bg-white/10 text-white"
                         : "text-white/70 transition hover:bg-white/10 hover:text-white"
-                    }`}
-                    onClick={() => setIsOpen(false)}
+                    } cursor-pointer`}
                   >
                     {link.label}
                   </Link>
