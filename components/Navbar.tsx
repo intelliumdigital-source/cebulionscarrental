@@ -72,6 +72,7 @@ export function Navbar() {
                 <Link
                   key={link.label}
                   href={link.href}
+                  scroll={false}
                   className={`relative text-sm font-semibold uppercase tracking-[0.14em] transition ${
                     isActive ? "text-white" : "text-white/70 hover:text-white"
                   }`}
@@ -115,6 +116,7 @@ export function Navbar() {
                   <Link
                     key={link.label}
                     href={link.href}
+                    scroll={false}
                     className={`rounded-2xl px-4 py-3 text-sm font-semibold uppercase tracking-[0.14em] ${
                       isActive
                         ? "bg-white/10 text-white"
