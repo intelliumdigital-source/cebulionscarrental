@@ -31,7 +31,8 @@ function buildRatesReply() {
 
   return [
     "Our rates start at P1,500/day.",
-    `Wigo and Mirage start at ${rateMap.get("Toyota Wigo") || "P1,500/day"}.`,
+    `Toyota Wigo starts at ${rateMap.get("Toyota Wigo") || "P1,500/day"}.`,
+    `Mitsubishi Mirage starts at ${rateMap.get("Mitsubishi Mirage") || "P1,700/day"}.`,
     `Vios ${rateMap.get("Toyota Vios") || "P1,800/day"}.`,
     `Avanza ${rateMap.get("Toyota Avanza") || "P2,400/day"}.`,
     `Xpander ${rateMap.get("Mitsubishi Xpander") || "P2,600/day"}.`,

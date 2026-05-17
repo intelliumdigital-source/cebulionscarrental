@@ -151,7 +151,7 @@ export const fleetVehicles: FleetVehicle[] = [
     bookingLabel: "Mitsubishi Mirage",
     type: "Compact",
     capacity: "5 Seater",
-    dailyRate: "₱1,500/day",
+    dailyRate: "₱1,700/day",
     image: "/images/fleet/mirage.png",
     blurb: "A nimble city option for practical trips around Cebu.",
     featured: false,
